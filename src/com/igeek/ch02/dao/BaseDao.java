@@ -19,15 +19,9 @@ public class BaseDao<T> {
     //增删改
 
     //查询单个对象
-    public T getBean(String sql , Class<T> clazz , Object...params){
-        try {
-            T t = runner.query(JDBCUtils.getConn() , sql , new BeanHandler<>(clazz) , params);
-            return t;
-        } catch (SQLException e) {
-            throw new RuntimeException();
-        } finally{
-            JDBCUtils.closeConn();
-        }
+    public T getBean(String sql , Class<T> clazz , Object...params) throws SQLException{
+        T t = runner.query(JDBCUtils.getConn() , sql , new BeanHandler<>(clazz) , params);
+        return t;
     }
 
     //查询多个对象
