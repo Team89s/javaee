@@ -5,10 +5,12 @@ import com.igeek.ch02.service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLEncoder;
 
 @WebServlet(name = "UserServlet" , urlPatterns = "/user")
 public class UserServlet extends HttpServlet {
@@ -19,6 +21,7 @@ public class UserServlet extends HttpServlet {
         //获得请求参数
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        String timeLength = request.getParameter("timeLength");
 
         UserService service = new UserService();
 
@@ -33,7 +36,27 @@ public class UserServlet extends HttpServlet {
                         request.getRequestDispatcher("userLogin.jsp").forward(request,response);
                         break;
                     case "1":
-                        request.getRequestDispatcher("success.jsp").forward(request,response);
+                        //登录成功
+
+                        //简化登录：通过Cookie存储姓名和密码
+                        if(timeLength!=null && !timeLength.equals("0")){
+                            int day = Integer.parseInt(timeLength);
+
+                            //1.创建Cookie
+                            //编码
+                            Cookie usernameCookie = new Cookie("usernameCookie", URLEncoder.encode(username,"UTF-8"));
+                            Cookie passwordCookie = new Cookie("passwordCookie",password);
+
+                            //2.设置有效时长，存储在浏览器所在的PC机上
+                            usernameCookie.setMaxAge(day*24*60*60);
+                            passwordCookie.setMaxAge(day*24*60*60);
+
+                            //3.响应至客户端
+                            response.addCookie(usernameCookie);
+                            response.addCookie(passwordCookie);
+                        }
+
+                        request.getRequestDispatcher("user/success.jsp").forward(request,response);
                         break;
                     case "2":
                         request.setAttribute("msg","当前账户审核失败，请重新提交信息");
