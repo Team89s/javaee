@@ -19,7 +19,8 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
 
-        //获得请求参数  request.getParameter("1.input中的name值  2.地址栏中?key1=value1&key2=value2的key1、key2")
+        // 从JSP页面至Servlet : 获得请求参数
+        // request.getParameter("1.input中的name值  2.地址栏中?key1=value1&key2=value2的key1、key2")
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
@@ -29,14 +30,30 @@ public class LoginServlet extends HttpServlet {
             //响应重定向：会产生新的请求，不会携带数据
             //response.sendRedirect("success");
 
+            //请求属性 ： 将数据从Servlet传递数据至某个Servlet或JSP页面
+            //request.setAttribute("key",obj)
+            request.setAttribute("msg","当前登录成功");
+
             //请求转发：不会产生新的请求，沿用之前的请求，所以可以携带数据
-            request.getRequestDispatcher("success").forward(request,response);
+            //跳转至Servlet
+            //request.getRequestDispatcher("success").forward(request,response);
+
+            //跳转至JSP页面
+            request.getRequestDispatcher("success.jsp").forward(request,response);
 
         }else{
             //跳转至失败界面
 
+            //将数据从Servlet传递数据至某个Servlet或JSP页面  请求属性
+            request.setAttribute("msg","当前登录失败");
+
             //响应重定向
-            response.sendRedirect("fail");
+
+            //跳转至Servlet
+            //response.sendRedirect("fail");
+
+            //跳转至JSP页面
+            response.sendRedirect("fail.jsp");
         }
     }
 

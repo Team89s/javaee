@@ -10,6 +10,8 @@ import java.io.IOException;
 @WebServlet(name = "LoginFailServlet" , urlPatterns = "/fail")
 public class LoginFailServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html;charset=utf-8");
+        response.getWriter().write( request.getAttribute("msg").toString());
         response.getWriter().write(" login fail ");
     }
 
