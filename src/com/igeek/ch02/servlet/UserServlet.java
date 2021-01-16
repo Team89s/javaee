@@ -15,7 +15,7 @@ import java.net.URLEncoder;
 public class UserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //设置请求中的编码集
-        request.setCharacterEncoding("UTF-8");
+        //request.setCharacterEncoding("UTF-8");
 
         //会话属性  Servlet中的会话HttpSession由自己创建
         HttpSession session = request.getSession();

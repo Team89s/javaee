@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSessionListener;
 import javax.servlet.http.HttpSessionBindingEvent;
 
 //监听当前会话中的属性情况
-@WebListener()
+//@WebListener()
 public class MyListener implements HttpSessionAttributeListener {
 
     // Public constructor is required by servlet spec
