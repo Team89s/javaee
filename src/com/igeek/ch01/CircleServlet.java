@@ -20,6 +20,8 @@ import java.io.IOException;
 
 /**
  * 1.initParams  Servlet的初始化参数的配置 ， 搭配 @WebInitParam 使用，允许配置多个值
+ * 当前初始化参数只针对于当前的Servlet有效
+ *
  * 2.loadOnStartup  配置后，在tomcat容器启动时，直接实例化、初始化Servlet；
  * 若出现多个配置了loadOnStartup的值的情况，则值越小越先加载
  */

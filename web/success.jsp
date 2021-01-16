@@ -17,13 +17,25 @@
         if(user!=null){
             String name = user.getName();
     %>
-        <h1 style="color: cadetblue">会话属性：<%= name %></h1>
+            <h1 style="color: cadetblue">会话属性：<%= name %></h1>
     <%
+            //移除会话中属性
+            //session.removeAttribute("user");
+
+            //替换会话中属性
+            session.setAttribute("user",new User());
         }
     %>
 
     <h1 style="color: red"><a href="user?code=logout">登出</a></h1>
 
     <a href=<%=response.encodeURL("testJSP/blank.jsp")%>>访问blank.jsp</a>
+
+    <%-- JSP直接使用application,作为上下文对象 --%>
+    <%= application.getInitParameter("test") %>
+
+    <%-- 显示当前访问登录的人次 --%>
+    当前访问登录的人次：<%= application.getAttribute("count") %>
+
 </body>
 </html>

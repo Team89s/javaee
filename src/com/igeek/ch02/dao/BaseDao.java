@@ -3,6 +3,7 @@ package com.igeek.ch02.dao;
 import com.igeek.ch02.utils.JDBCUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import java.sql.SQLException;
 
@@ -17,6 +18,10 @@ public class BaseDao<T> {
     private QueryRunner runner = new QueryRunner();
 
     //增删改
+    public int update(String sql , Object...params) throws SQLException {
+        int i = runner.update(JDBCUtils.getConn(), sql, params);
+        return i;
+    }
 
     //查询单个对象
     public T getBean(String sql , Class<T> clazz , Object...params) throws SQLException{
@@ -27,4 +32,9 @@ public class BaseDao<T> {
     //查询多个对象
 
     //查询单个值
+    public Object getSingleValue(String sql , Object...params) throws SQLException {
+        Object o = runner.query(JDBCUtils.getConn(), sql, new ScalarHandler(), params);
+        return o;
+    }
+
 }

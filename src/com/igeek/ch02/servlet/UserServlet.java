@@ -2,7 +2,9 @@ package com.igeek.ch02.servlet;
 
 import com.igeek.ch02.entity.User;
 import com.igeek.ch02.service.UserService;
+import com.igeek.ch02.service.VisitService;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
@@ -41,8 +43,7 @@ public class UserServlet extends HttpServlet {
                                     request.setAttribute("msg","当前账户未审核，请耐心等待");
                                     request.getRequestDispatcher("userLogin.jsp").forward(request,response);
                                     break;
-                                case "1":
-                                    //登录成功
+                                case "1":  //登录成功
 
                                     //简化登录：通过Cookie存储姓名和密码
                                     if(timeLength!=null && !timeLength.equals("0")){
@@ -67,6 +68,27 @@ public class UserServlet extends HttpServlet {
 
                                     //设置最大非活动时间  默认tomcat是30分钟
                                     //session.setMaxInactiveInterval(2*60*60);
+
+
+                                    //网站的登录人次统计
+                                    //Servlet 中，如何获得上下文对象ServletContext
+                                    ServletContext sc = this.getServletContext();
+
+                                    Object o = sc.getAttribute("count");
+                                    int count = 0;
+                                    if(o!=null){
+                                        count = Integer.parseInt(o.toString());
+                                    }
+                                    count++;
+                                    sc.setAttribute("count",count);
+
+                                    //E:\5.JSP+Servlet\code\javaee\out\artifacts\javaee_war_exploded\
+                                    //System.out.println("实际路径："+sc.getRealPath("/"));
+                                    //此处的值是：Deployment部署时的Application Context的值，此时是 空格
+                                    //System.out.println("访问URL："+sc.getContextPath());
+
+                                    //获得上下文初始化参数的值
+                                    //System.out.println(" test = "+ sc.getInitParameter("test"));
 
                                     request.getRequestDispatcher("success.jsp").forward(request,response);
                                     break;
