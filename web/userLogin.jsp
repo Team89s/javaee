@@ -39,7 +39,7 @@
     <%
         }
     %>
-    <form id="loginForm" action="" method="post">
+    <form id="loginForm" action="user?code=login" method="post">
         <table border="1px" cellpadding="10px" cellspacing="0">
             <tr>
                 <th colspan="2">用户登录界面</th>
