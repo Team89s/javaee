@@ -12,11 +12,15 @@ import java.io.IOException;
  * 2.urlPatterns 过滤路径，/*代表过滤所有路径
  * 3.initParams  过滤器的初始化参数  @WebInitParam 其中name初始化参数的名字，value就是其值
  */
-@WebFilter(filterName = "EncodeFilter" , urlPatterns = "/*" ,
+@WebFilter(filterName = "f1" , urlPatterns = "/*" ,
     initParams = {@WebInitParam(name="encode" , value = "utf-8")})
 public class EncodeFilter implements Filter {
 
     private String encode;
+
+    public EncodeFilter(){
+        System.out.println("EncodeFilter() 实例化");
+    }
 
     //销毁方法
     public void destroy() {

@@ -29,7 +29,9 @@
 
     <h1 style="color: red"><a href="user?code=logout">登出</a></h1>
 
-    <a href=<%=response.encodeURL("testJSP/blank.jsp")%>>访问blank.jsp</a>
+    <a href=<%=response.encodeURL("testJSP/blank.jsp")%>>访问blank.jsp</a><br/>
+    <a href=<%=response.encodeURL("testJSP/testFilter.jsp")%>>访问testFilter.jsp</a><br/>
+    <a href=<%=response.encodeURL("fail.jsp")%>>访问fail.jsp</a>
 
     <%-- JSP直接使用application,作为上下文对象 --%>
     <%= application.getInitParameter("test") %>

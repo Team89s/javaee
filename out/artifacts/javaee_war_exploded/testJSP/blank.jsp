@@ -7,13 +7,13 @@
 </head>
 <body>
     <%--  登录访问控制 --%>
-    <%
+    <%--<%
         User user = (User)session.getAttribute("user");
         if(user==null) {
             request.setAttribute("msg","当前资源必须登录后访问");
             request.getRequestDispatcher(application.getContextPath()+"/userLogin.jsp").forward(request,response);
         }
-    %>
+    %>--%>
 
     <%
         for(int i=0;i<10;i++) {

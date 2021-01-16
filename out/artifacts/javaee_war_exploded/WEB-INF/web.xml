@@ -10,4 +10,14 @@
         <param-value>aaa</param-value>
     </context-param>
 
+    <!-- 配置Servlet -->
+    <servlet>
+        <servlet-name>SecondServlet</servlet-name>
+        <servlet-class>com.igeek.ch01.SecondServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SecondServlet</servlet-name>
+        <url-pattern>/second</url-pattern>
+    </servlet-mapping>
+
 </web-app>
