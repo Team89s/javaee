@@ -32,5 +32,19 @@
     <c:set target="${user}" property="name" value="李思思"></c:set>
     ${user.name}
 
+    <br><hr>
+
+    <%-- c:set 标签 --%>
+    <%
+        pageContext.setAttribute("str",null);
+    %>
+    ${str}
+
+    <%--  default设置没有数据的时候，默认输出 --%>
+    <c:out value="${str}" default="小黄鸭"></c:out> <br>
+    ${str}
+
+    <%-- escapeXml="true" 让浏览器不解析其中的html --%>
+    <c:out value="<a href='http://www.baidu.com'>测试</a>" escapeXml="false"></c:out>
 </body>
 </html>
