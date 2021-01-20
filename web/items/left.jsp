@@ -3,5 +3,5 @@
 <ul>
 	<li onclick="login()">登陆</li>
 	<li onclick="logout('${path}')">退出</li>
-	<li onclick="">查看分页信息</li>
+	<li onclick="viewAll('${path}')">查看分页信息</li>
 </ul>

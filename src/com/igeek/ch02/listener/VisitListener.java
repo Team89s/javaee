@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSessionListener;
 import javax.servlet.http.HttpSessionBindingEvent;
 
 //监听器ServletContextListener：监听容器启动和关闭 --》 事件ServletContextEvent：上下文对象的创建和销毁
-@WebListener()
+//@WebListener()
 public class VisitListener implements ServletContextListener {
 
     private VisitService service = new VisitService();

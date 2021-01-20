@@ -6,12 +6,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>index.jsp</title>
-<link rel="stylesheet" href="../css/index.css"/>
-<script type="text/javascript" src="../js/jquery-3.1.1.js"></script>
-<script type="text/javascript" src="../js/index.js"></script>
-<script type="text/javascript" src="../js/items.js"></script>
+<link rel="stylesheet" href="${path}/css/index.css"/>
+<script type="text/javascript" src="${path}/js/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="${path}/js/index.js"></script>
+<script type="text/javascript" src="${path}/js/items.js"></script>
 </head>
 <body style="letter-spacing: -8px">
+	<c:set value="${pageContext.request.contextPath}" var="path" scope="application"></c:set>
 	<div class="head" style="width: 1200px;height: 200px;background-color: olive">
 		<%@ include file="head.jsp" %>
 	</div>

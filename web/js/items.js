@@ -33,3 +33,118 @@ function logout(url) {
         }
     });
 }
+
+
+//查询所有商品信息
+function viewAll(url) {
+    var query = $("#searchName").val();
+    if(query == undefined){
+        query = "";
+    }
+    $.ajax({
+        type:"get",
+        url:url+"/items?code=viewAll&query="+query,
+        success:function (rs) {
+            $(".main").html(rs);
+        }
+    });
+}
+
+//分页
+//首页
+function first(url) {
+    //获取查询条件
+    var query = $("#searchName").val();
+    //获取当前页
+    var pageNow = $("#pageNow").val();
+    pageNow = 1;
+
+    $.ajax({
+        type:"get",
+        url:url+"/items?code=viewAll&query="+query+"&pageNow="+pageNow,
+        success:function (rs) {
+            $(".main").html(rs);
+        }
+    });
+}
+
+//末页
+function last(url,myPages) {
+    //获取查询条件
+    var query = $("#searchName").val();
+    //获取当前页
+    var pageNow = $("#pageNow").val();
+    pageNow = myPages;
+
+    $.ajax({
+        type:"get",
+        url:url+"/items?code=viewAll&query="+query+"&pageNow="+pageNow,
+        success:function (rs) {
+            $(".main").html(rs);
+        }
+    });
+}
+
+//上一页
+function pre(url) {
+    //获取查询条件
+    var query = $("#searchName").val();
+    //获取当前页
+    var pageNow = $("#pageNow").val();
+    if(pageNow<=1){
+        alert("已至首页");
+    }else{
+        pageNow = pageNow - 1;
+    }
+
+    $.ajax({
+        type:"get",
+        url:url+"/items?code=viewAll&query="+query+"&pageNow="+pageNow,
+        success:function (rs) {
+            $(".main").html(rs);
+        }
+    });
+}
+
+
+//下一页
+function next(url,myPages) {
+    //获取查询条件
+    var query = $("#searchName").val();
+    //获取当前页
+    var pageNow = $("#pageNow").val();
+    if(pageNow>=myPages){
+        alert("已至末页");
+    }else{
+        pageNow = pageNow - (-1);
+    }
+
+    $.ajax({
+        type:"get",
+        url:url+"/items?code=viewAll&query="+query+"&pageNow="+pageNow,
+        success:function (rs) {
+            $(".main").html(rs);
+        }
+    });
+}
+
+
+//跳转
+function skip(url,myPages) {
+    //获取查询条件
+    var query = $("#searchName").val();
+    //获取当前页
+    var pageNow = $("#pageNow").val();
+    if(pageNow<1 || pageNow>myPages){
+        alert("超出范围");
+        pageNow = 1;
+    }
+
+    $.ajax({
+        type:"get",
+        url:url+"/items?code=viewAll&query="+query+"&pageNow="+pageNow,
+        success:function (rs) {
+            $(".main").html(rs);
+        }
+    });
+}

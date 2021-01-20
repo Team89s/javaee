@@ -12,14 +12,14 @@
 	<script src="${pageContext.request.contextPath}/js/index.js"></script>
 </head>
 <body>
-<div style="padding: 0 20px">
+<div style="padding: 0 10px">
 	<div class="row" style="margin-top: 10px">
 		<div class="col-md-6 col-lg-6">
 			<div class="input-group">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="button" onclick="">查找</button>
-                    </span>
-				<input type="text" class="form-control" placeholder="Search by name" id="searchName">
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="button" onclick="viewAll('${path}')">查找</button>
+				</span>
+				<input type="text" class="form-control" placeholder="Search by name" id="searchName" value="${vo.query}">
 			</div>
 		</div>
 		<div class="col-md-4 col-lg-4">
@@ -39,17 +39,17 @@
 				<th style="text-align:center">商品图片</th>
 				<th style="text-align:center">操作</th>
 			</tr>
-			<c:forEach items="" var="">
+			<c:forEach items="${vo.list}" var="items">
 				<tr class="data" align="center">
 					<td class="datachoose"><input type="checkbox" class="single"></td>
-					<td class="id"></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td><fmt:formatDate value="" pattern="yyyy-MM-dd"/></td>
+					<td class="id">${items.id}</td>
+					<td>${items.name}</td>
+					<td>${items.detail}</td>
+					<td>${items.price}</td>
+					<td><fmt:formatDate value="${items.createtime}" pattern="yyyy-MM-dd"/></td>
 					<td>
-						<c:if test="">
-							<img src="" width="64px" height="auto"/>
+						<c:if test="${items.pic!=null && items.pic!=''}">
+							<img src="${items.pic}" width="64px" height="auto"/>
 						</c:if>
 					</td>
 					<td>
@@ -58,20 +58,26 @@
 					</td>
 				</tr>
 			</c:forEach>
+
+			<%--  分页按钮 --%>
 			<tr align="center">
 				<td colspan="8">
 					<input class="btn btn-success" type="button" value="首页"
-						   onclick=""/>&nbsp;&nbsp;
+						   onclick="first('${path}')"/>&nbsp;&nbsp;
 					<input class="btn btn-success" type="button" id="pre" value="上一页"
-						   onclick=""/>&nbsp;&nbsp;
+						   onclick="pre('${path}')"/>&nbsp;&nbsp;
 					<!-- 当前页 -->
-					<input type="text" id="pageNow" value="1" style="text-align:center"/>&nbsp;&nbsp;
+					<input type="text" id="pageNow" value="${vo.pageNow}" style="text-align:center"/>&nbsp;&nbsp;
+
+					<%--<input type="text" hidden="hidden" id="myPages" value="${vo.myPages}" style="text-align:center"/>&nbsp;&nbsp;
+					<input type="text" hidden="hidden" id="path" value="${path}" style="text-align:center"/>&nbsp;&nbsp;--%>
+
 					<input class="btn btn-success" type="button" value="跳转"
-						   onclick=""/>&nbsp;&nbsp;
+						   onclick="skip('${path}',${vo.myPages})"/>&nbsp;&nbsp;
 					<input class="btn btn-success" type="button" id="next" value="下一页"
-						   onclick=""/>&nbsp;&nbsp;
+						   onclick="next('${path}',${vo.myPages})"/>&nbsp;&nbsp;
 					<input class="btn btn-success" type="button" value="末页"
-						   onclick=""/>&nbsp;&nbsp;
+						   onclick="last('${path}',${vo.myPages})"/>&nbsp;&nbsp;
 				</td>
 			</tr>
 		</table>
