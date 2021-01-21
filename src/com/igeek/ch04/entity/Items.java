@@ -19,6 +19,13 @@ public class Items {
     public Items() {
     }
 
+    public Items(String name, Double price, Timestamp createtime, String detail) {
+        this.name = name;
+        this.price = price;
+        this.createtime = createtime;
+        this.detail = detail;
+    }
+
     public Items(Integer id, String name, Double price, String pic, Timestamp createtime, String detail) {
         this.id = id;
         this.name = name;

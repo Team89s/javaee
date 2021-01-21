@@ -10,6 +10,7 @@
 	<script type="text/javascript" src="${path}/js/jquery-3.1.1.js"></script>
 	<script type="text/javascript" src="${path}/js/index.js"></script>
 	<script type="text/javascript" src="${path}/js/items.js"></script>
+	<script type="text/javascript" src="${path}/js/My97DatePicker/WdatePicker.js"></script>
 </head>
 <body style="letter-spacing: -8px">
 	<c:set value="${pageContext.request.contextPath}" var="path" scope="application"></c:set>

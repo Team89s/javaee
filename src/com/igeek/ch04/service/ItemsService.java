@@ -56,4 +56,21 @@ public class ItemsService {
         return true;  //当前商品名称未使用，则可以使用
     }
 
+    //商品上架
+    public boolean add(Items items){
+        boolean flag = this.validate(items.getName());
+        if(flag){
+            try {
+                int i = dao.insert(items);
+                if(i>0){
+                    //插入成功
+                    return true;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        //插入失败
+        return false;
+    }
 }

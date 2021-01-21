@@ -6,14 +6,20 @@ import com.igeek.ch04.vo.PageVO;
 import net.sf.json.JSONObject;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
+import java.util.UUID;
 
 @WebServlet(name = "ItemsServlet" , urlPatterns = "/items")
+//当前Servlet接收multipart/form-data请求, 将一个Servlet标识为支持文件上传
+@MultipartConfig
 public class ItemsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         this.doGet(request, response);
@@ -71,6 +77,46 @@ public class ItemsServlet extends HttpServlet {
 
                     break;
                 case "add":
+                    //收集普通域中的请求参数
+                    name = request.getParameter("name");
+                    String detail = request.getParameter("detail");
+                    Double price = Double.valueOf(request.getParameter("price"));
+                    Timestamp createtime = Timestamp.valueOf(request.getParameter("createtime"));
+                    //封装商品对象
+                    Items items = new Items(name,price,createtime,detail);
+
+                    //收集图片上传的请求参数
+                    Part part = request.getPart("file");
+                    if(part!=null){
+                        //获取上传时图片信息（包含图片名称）
+                        String oldName = part.getHeader("content-disposition");
+                        //oldName = form-data; name="file"; filename="car1.png"
+                        System.out.println("oldName = "+oldName);
+
+                        if(oldName!=null && oldName.lastIndexOf(".")>0){
+                            //真正上传图片
+                            //图片新名字 = 随机数 + 旧名称的后缀
+                            String newName = UUID.randomUUID()
+                                    + oldName.substring(oldName.lastIndexOf("."),oldName.length()-1);
+
+                            //将图片信息存储至当前的Items对象中
+                            items.setPic("/pic/"+newName);
+                            //将图片信息传递至本地服务器上
+                            part.write("E:\\5.JSP+Servlet\\temp\\"+newName);
+                        }
+                    }
+
+                    //添加商品
+                    boolean o = service.add(items);
+                    if(o){
+                        //添加成功，为了避免重复提交表单，响应重定向至查询商品列表
+                        response.sendRedirect(request.getContextPath()+"/items?code=viewAll");
+                    }else{
+                        //添加失败，回显商品信息
+                        request.setAttribute("items",items);
+                        request.getRequestDispatcher("/items/addItem.jsp").forward(request,response);
+                    }
+
                     break;
                 case "viewOne":
                     break;

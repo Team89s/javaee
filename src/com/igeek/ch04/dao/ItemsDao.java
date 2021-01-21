@@ -34,4 +34,13 @@ public class ItemsDao extends BaseDao<Items> {
         return items;
     }
 
+    //添加商品信息
+    public int insert(Items items) throws SQLException {
+        String sql = "insert into items values(null,?,?,?,?,?)";
+        int i = this.update(sql, items.getName(), items.getPrice(), items.getDetail(),
+                items.getPic(), items.getCreatetime());
+        return i;
+    }
+
+
 }

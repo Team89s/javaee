@@ -179,3 +179,19 @@ function validateName(url) {
         }
     });
 }
+
+//增加商品
+function addServlet(url) {
+    //以二进制数据格式收集数据
+    var formData = new FormData($("#addForm")[0]);
+    $.ajax({
+        type:"post",
+        url:url+"/items?code=add",
+        data:formData,
+        contentType:false,
+        processData:false,
+        success:function(rs){
+            $(".main").html(rs);
+        }
+    });
+}
