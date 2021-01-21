@@ -11,7 +11,7 @@
 	<script src="${pageContext.request.contextPath}/js/jquery-3.1.1.js"></script>
 </head>
 <body>
-	<div class="container" style="margin-top: 10px">
+	<div style="padding: 0 100px;margin-top: 10px;width: 500px;height: 100%">
 		<h2 class="form-group">添加商品</h2>
 		<%-- enctype="multipart/form-data"  当前表单数据将以二进制数据传递 --%>
 		<form id="addForm" action="" method="post" enctype="multipart/form-data">

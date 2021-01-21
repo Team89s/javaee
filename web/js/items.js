@@ -167,7 +167,7 @@ function validateName(url) {
         type:"get",
         url:url+"/items?code=validate&name="+name,
         dataType:"json",   //若要解析json数据，必须由此项
-        success:function(rs){
+        success:function(rs){  //rs 就是json串  {"flag":"false","message":"当前商品名称已被占用"}
             var flag = rs.flag;
             var message = rs.message;
             alert(flag +"\n"+message);
