@@ -42,5 +42,24 @@ public class ItemsDao extends BaseDao<Items> {
         return i;
     }
 
+    //通过id查询单个商品信息
+    public Items selectOne(Integer id) throws SQLException {
+        String sql = "select * from items where id = ?";
+        Items items = this.getBean(sql, Items.class, id);
+        return items;
+    }
 
+    //更新商品信息
+    public int update(Items items) throws SQLException {
+        String sql = "update items set name = ? , price = ? , detail = ? , createtime = ? , pic = ? where id = ?";
+        int i = this.update(sql, items.getName(), items.getPrice(), items.getDetail(),
+                items.getCreatetime(), items.getPic(), items.getId());
+        return i;
+    }
+
+    public int delete(Integer id) throws SQLException {
+        String sql = "delete from items where id = ?";
+        int i = this.update(sql, id);
+        return i;
+    }
 }

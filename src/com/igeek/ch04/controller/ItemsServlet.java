@@ -121,10 +121,60 @@ public class ItemsServlet extends HttpServlet {
 
                     break;
                 case "viewOne":
+                    int id = Integer.parseInt(request.getParameter("id"));
+                    items = service.viewOne(id);
+                    request.setAttribute("items",items);
+                    request.getRequestDispatcher("items/editItem.jsp").forward(request,response);
                     break;
                 case "update":
+                    //收集普通域中的请求参数
+                    id = Integer.parseInt(request.getParameter("id"));
+                    name = request.getParameter("name");
+                    detail = request.getParameter("detail");
+                    price = Double.valueOf(request.getParameter("price"));
+                    createtime = Timestamp.valueOf(request.getParameter("createtime"));
+                    //封装商品对象
+                    items = new Items(id,name,price,createtime,detail);
+
+                    //收集图片上传的请求参数
+                    part = request.getPart("file");
+                    if(part!=null){
+                        String oldName = part.getHeader("content-disposition");
+                        if(oldName!=null && oldName.lastIndexOf(".")>0){
+                            //上传
+                            String newName = UUID.randomUUID() +
+                                    oldName.substring(oldName.lastIndexOf("."),oldName.length()-1);
+                            //给Items对象传递图片信息
+                            items.setPic("/pic/"+newName);
+                            //本地图片服务器传递图片信息
+                            part.write("E:\\5.JSP+Servlet\\temp\\"+newName);
+                        }else{
+                            //未上传
+                            String pic = service.viewOne(id).getPic();
+                            items.setPic(pic);
+                        }
+                    }
+
+                    o = service.update(items);
+
+                    if(o){
+                        //更新成功 ， 响应重定向，避免重复提交表单
+                        response.sendRedirect(request.getContextPath()+"/items?code=viewAll");
+                    }else{
+                        //更新失败 ， 数据回显
+                        request.setAttribute("items",service.viewOne(id));
+                        request.getRequestDispatcher("items/editItem.jsp").forward(request,response);
+                    }
+
                     break;
                 case "delete":
+                    String[] strs = request.getParameterValues("id");
+                    Integer[] ids = new Integer[strs.length];
+                    for (int i = 0; i < strs.length; i++) {
+                        ids[i] = Integer.parseInt(strs[i]);
+                    }
+                    service.delete(ids);
+                    response.sendRedirect(request.getContextPath()+"/items?code=viewAll");
                     break;
                 default:
                     System.out.println("没有匹配操作项");

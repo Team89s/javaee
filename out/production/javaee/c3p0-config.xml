@@ -31,5 +31,13 @@
      <property name="jdbcUrl">jdbc:mysql://localhost:3306/order?useUnicode=true&amp;characterEncoding=utf8</property>
      <property name="user">root</property>
      <property name="password">root</property>
+      <!--当池中的连接不够时，一次创建多少个连接-->
+      <property name="acquireIncrement">5</property>
+      <!--初始时池中的连接-->
+      <property name="initialPoolSize">3</property>
+      <!--最大有多少个-->
+      <property name="maxPoolSize">10</property>
+      <!--最小有多少个-->
+      <property name="minPoolSize">3</property>
   </named-config>
 </c3p0-config>

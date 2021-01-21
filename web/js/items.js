@@ -195,3 +195,87 @@ function addServlet(url) {
         }
     });
 }
+
+
+//显示修改界面
+function viewOne(url){
+    $.ajax({
+        type:"get",
+        url:url,
+        success:function (rs) {
+            $(".main").html(rs);
+        }
+    });
+}
+
+//校验更新时的用户名是否存在
+function validateUpdateName(url,oldName) {
+    var newName = $("#name").val();
+
+    if(oldName != newName){
+        $.ajax({
+            type:"get",
+            url:url+"/items?code=validate&name="+newName,
+            dataType:"json",   //若要解析json数据，必须由此项
+            success:function(rs){  //rs 就是json串  {"flag":"false","message":"当前商品名称已被占用"}
+                var flag = rs.flag;
+                var message = rs.message;
+                alert(flag +"\n"+message);
+                if(flag=='true'){
+                    $(".nameMsg").html("<font style='color: #3c763d'>"+message+"</font>");
+                }else if(flag=='false'){
+                    $(".nameMsg").html("<font style='color: darkred'>"+message+"</font>");
+                }
+            }
+        });
+    }else{
+        $(".nameMsg").html("");
+    }
+}
+
+
+//更新商品信息
+function updateServlet(url) {
+    var formData = new FormData($("#updateForm")[0]);
+    $.ajax({
+        type:"post",
+        url:url+"/items?code=update",
+        data:formData,
+        contentType:false,
+        processData:false,
+        success:function(rs){
+            $(".main").html(rs);
+        }
+    });
+}
+
+
+//删除
+function deleteAll(url,str) {
+
+    if(str=="all"){
+        //多选删除   http://localhost:8899/items?code=delete&id=1&id=2
+        var s = "";
+        $(".single").each(function () {
+            if($(this).prop("checked")){
+                var id = $(this).parents(".data").find(".id").text();
+                // &id=1&id=2
+                s = s + "&id="+id;
+                alert(s)
+            }
+        });
+        url = url+"/items?code=delete"+s;  //&id=1&id=2&id=3
+    }else{
+        //单项删除  http://localhost:8899/items?code=delete&id=1
+        url = url+"/items?code=delete&id="+str;
+    }
+
+    //发送请求
+    $.ajax({
+        type:"get",
+        url:url,
+        success:function (rs) {
+            $(".main").html(rs);
+        }
+    });
+}
