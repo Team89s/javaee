@@ -20,7 +20,9 @@
 			</div>
 			<div class="form-group">
 				<label for="name">商品名称</label>
-				<input type="text" class="form-control" id="name" placeholder="name" name="name" required="required">
+				<input type="text" class="form-control" id="name" placeholder="name" name="name" required="required"
+					onchange="validateName('${path}')">
+				<span class="nameMsg"></span>
 			</div>
 			<div class="form-group">
 				<label for="detail">商品描述</label>

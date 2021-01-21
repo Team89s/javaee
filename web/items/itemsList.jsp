@@ -12,7 +12,7 @@
 	<script src="${pageContext.request.contextPath}/js/index.js"></script>
 </head>
 <body>
-<div style="padding: 0 10px">
+<div style="padding: 0 20px">
 	<div class="row" style="margin-top: 10px">
 		<div class="col-md-6 col-lg-6">
 			<div class="input-group">
@@ -23,12 +23,12 @@
 			</div>
 		</div>
 		<div class="col-md-4 col-lg-4">
-			<input class="btn btn-success" type="button" value="增加商品" onclick="">
+			<input class="btn btn-success" type="button" value="增加商品" onclick="add()">
 			<input class="btn btn-danger" type="button" value="删除所有" onclick="">
 		</div>
 	</div>
 	<div class="row" style="margin-top: 20px">
-		<table class="table table-bordered">
+		<table class="table table-bordered" style="font-size: 10px">
 			<tr align="center">
 				<th style="text-align:center"><input type="checkbox" class="choose_all"></th>
 				<th style="text-align:center">商品编号</th>

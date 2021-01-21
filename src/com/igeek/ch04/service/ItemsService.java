@@ -32,13 +32,28 @@ public class ItemsService {
             List<Items> list = dao.selectAll(query, begin);
             //封装
             vo = new PageVO<>(query,pageNow,myPages,list);
-            System.out.println("vo = "+vo);
+            //System.out.println("vo = "+vo);
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             JDBCUtils.closeConn();
         }
         return vo;
+    }
+
+    //校验商品名称是否存在
+    public boolean validate(String name){
+        try {
+            Items items = dao.selectOne(name);
+            if(items!=null){
+                return false;  //当前商品名称已使用，则不能使用
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            JDBCUtils.closeConn();
+        }
+        return true;  //当前商品名称未使用，则可以使用
     }
 
 }

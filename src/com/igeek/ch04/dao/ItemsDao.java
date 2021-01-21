@@ -27,4 +27,11 @@ public class ItemsDao extends BaseDao<Items> {
         return itemsList;
     }
 
+    //通过商品名称查询信息  精确查询
+    public Items selectOne(String name) throws SQLException {
+        String sql = "select * from items where name = ?";
+        Items items = this.getBean(sql, Items.class, name);
+        return items;
+    }
+
 }

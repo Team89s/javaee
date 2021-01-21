@@ -148,3 +148,34 @@ function skip(url,myPages) {
         }
     });
 }
+
+//显示add界面
+function add() {
+    $.ajax({
+        type:"get",
+        url:"addItem.jsp",
+        success:function(rs){
+            $(".main").html(rs);
+        }
+    });
+}
+
+//校验商品名称是否存在
+function validateName(url) {
+    var name = $("#name").val();
+    $.ajax({
+        type:"get",
+        url:url+"/items?code=validate&name="+name,
+        dataType:"json",   //若要解析json数据，必须由此项
+        success:function(rs){
+            var flag = rs.flag;
+            var message = rs.message;
+            alert(flag +"\n"+message);
+            if(flag=='true'){
+                $(".nameMsg").html("<font style='color: #3c763d'>"+message+"</font>");
+            }else if(flag=='false'){
+                $(".nameMsg").html("<font style='color: darkred'>"+message+"</font>");
+            }
+        }
+    });
+}
